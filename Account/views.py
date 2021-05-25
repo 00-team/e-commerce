@@ -1,3 +1,6 @@
 from django.shortcuts import render
 
-# Create your views here.
+from django.http import JsonResponse
+
+def account(r):
+    return JsonResponse({"Account":"Acc"})
