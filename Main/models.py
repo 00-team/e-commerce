@@ -20,12 +20,13 @@ Label_CHOICES = (
 class Item(models.Model):
     title = models.CharField(max_length=100)
     price = models.FloatField()
+    discount_price = models.FloatField(blank=True,null=True)
     category = models.CharField(choices=CATEGORY_CHOICES,max_length=2)
     label = models.CharField(choices=Label_CHOICES,max_length=1)
     slug = models.SlugField()
 
     def get_absolute_url(self):
-        return reverse("core:product", kwargs={
+        return reverse("product", kwargs={
             'slug': self.slug
         })
     
