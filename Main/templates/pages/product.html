@@ -48,7 +48,7 @@
             <a class="nav-link waves-effect" href="{% url 'checkout' %}" >CheckOut</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link waves-effect" href="{% url 'product' %}" >Product</a>
+            <a class="nav-link waves-effect" href="" >Product</a>
           </li>
         </ul>
 
@@ -98,13 +98,7 @@
 
             <div class="mb-3">
               <a href="">
-                <span class="badge purple mr-1">Category 2</span>
-              </a>
-              <a href="">
-                <span class="badge blue mr-1">New</span>
-              </a>
-              <a href="">
-                <span class="badge red mr-1">Bestseller</span>
+                <span class="badge purple mr-1">{{object.get_category_display}}</span>
               </a>
             </div>
 
@@ -112,7 +106,7 @@
               <span class="mr-1">
                 <del>$200</del>
               </span>
-              <span>$100</span>
+              <span>{{object.price}}</span>
             </p>
 
             <p class="lead font-weight-bold">Description</p>

@@ -1,18 +1,20 @@
 from django.shortcuts import render
+from django.views.generic import *
 from .models import *
 
 # Create your views here.
 
-def item_list(request):
-    context = {
-        "items" : Item.objects.all()
-    }
-    return render(request,"pages/home-page.html",context)
+class HomeView(ListView):
+    model = Item
+    template_name = "pages/home-page.html"
+    context_object_name = "items"
+
+class ItemDetailView(DetailView):
+    model = Item
+    template_name = "pages/product.html"
+
 
 
 def checkout(request):
     return render(request, "pages/checkout-page.html")
 
-
-def product(request):
-    return render(request, "pages/product-page.html")
