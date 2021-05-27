@@ -134,4 +134,4 @@ dmypy.json
 # local media
 media/
 
-static/*
+static/
