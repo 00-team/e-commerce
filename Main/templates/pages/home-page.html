@@ -117,8 +117,7 @@
 
       <!--First slide-->
       <div class="carousel-item active">
-        <div class="view" style="background-image: url("{% static 'img/slide1.jpg' %} "); background-repeat: no-repeat; background-size: cover;">
-
+        <div class="view" style="background-image: url('{% static 'img/slide1.jpg' %}'); background-repeat: no-repeat; background-size: cover;">
           <!-- Mask & flexbox options-->
           <div class="mask rgba-black-strong d-flex justify-content-center align-items-center">
 
@@ -154,7 +153,7 @@
 
       <!--Second slide-->
       <div class="carousel-item">
-        <div class="view" style="background-image: url('{% static 'img/slide2.jpg' %}'); background-repeat: no-repeat; background-size: cover;">
+        <div class="view" style="background-image: url('{% static 'img/slide2.png' %}'); background-repeat: no-repeat; background-size: cover;">
 
           <!-- Mask & flexbox options-->
           <div class="mask rgba-black-strong d-flex justify-content-center align-items-center">
@@ -308,7 +307,7 @@
                 <div class="view overlay">
                   <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12.jpg" class="card-img-top"
                     alt="">
-                  <a>
+                  <a href="{{item.get_absolute_url}}">
                     <div class="mask rgba-white-slight"></div>
                   </a>
                 </div>
@@ -317,7 +316,7 @@
                 <!--Card content-->
                 <div class="card-body text-center">
                   <!--Category & Title-->
-                  <a href="{{item.get_absolute_url}}" class="grey-text">
+                  <a  class="grey-text">
                     <h5>{{item.get_category_display}}</h5>
                   </a>
                   <h5>
