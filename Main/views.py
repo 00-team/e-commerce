@@ -20,6 +20,9 @@ def checkout(request):
     return render("pages/checkout-page.html")
 
 
+def profile(request):
+    return redirect("/")
+
 def add_to_cart(request, slug):
     item = get_object_or_404(Item, slug=slug)
     order_item, created = OrderItem.objects.get_or_create(
