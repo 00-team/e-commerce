@@ -1,4 +1,5 @@
 from django.shortcuts import get_object_or_404, redirect, render
+from django.core.exceptions import ObjectDoesNotExist
 from django.contrib import messages
 from django.views.generic import *
 from django.utils import timezone
@@ -16,9 +17,19 @@ class ItemDetailView(DetailView):
     template_name = "pages/product.html"
     context_object_name = "items"
 
-class OrderSummaryView(DetailView):
-    model = Order
-    template_name = "pages/order-summary.html"
+
+class OrderSummaryView(View):
+    def get(self,*args,**kwargs):
+        try:
+            order = Order.objects.get(user=self.request.user,ordered=False)
+            return render(self.request, "pages/order-summary.html")
+        except ObjectDoesNotExist:
+            messages.error(self.request, "You Don't have Active Order")
+            return redirect("/")
+    
+
+def order(request):
+    return render(request,"pages/order-summary.html")
 
 def checkout(request):
     return render("pages/checkout-page.html")
