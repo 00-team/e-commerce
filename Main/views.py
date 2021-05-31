@@ -1,5 +1,7 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.views.generic import *
 from django.utils import timezone
@@ -18,19 +20,23 @@ class ItemDetailView(DetailView):
     context_object_name = "items"
 
 
-class OrderSummaryView(View):
+class OrderSummaryView(LoginRequiredMixin, View):
     def get(self,*args,**kwargs):
         try:
             order = Order.objects.get(user=self.request.user,ordered=False)
-            return render(self.request, "pages/order-summary.html")
+            context = {
+                "object": order
+            }
+            return render(self.request, "pages/order-summary.html",context)
         except ObjectDoesNotExist:
             messages.error(self.request, "You Don't have Active Order")
             return redirect("/")
     
 
-def order(request):
-    return render(request,"pages/order-summary.html")
 
+
+
+@login_required
 def checkout(request):
     return render("pages/checkout-page.html")
 
@@ -38,6 +44,8 @@ def checkout(request):
 def profile(request):
     return redirect("/")
 
+
+@login_required
 def add_to_cart(request, slug):
     item = get_object_or_404(Item, slug=slug)
     order_item, created = OrderItem.objects.get_or_create(
@@ -67,6 +75,7 @@ def add_to_cart(request, slug):
         return redirect("product", slug=slug)
 
 
+@login_required
 def remove_from_cart(request,slug):
     item = get_object_or_404(Item, slug=slug)
     order_qs = Order.objects.filter(
