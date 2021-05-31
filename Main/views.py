@@ -16,6 +16,10 @@ class ItemDetailView(DetailView):
     template_name = "pages/product.html"
     context_object_name = "items"
 
+class OrderSummaryView(DetailView):
+    model = Order
+    template_name = "pages/order-summary.html"
+
 def checkout(request):
     return render("pages/checkout-page.html")
 
