@@ -38,7 +38,11 @@ class OrderSummaryView(LoginRequiredMixin, View):
 
 @login_required
 def checkout(request):
-    return render("pages/checkout-page.html")
+    item = Item.objects.all()
+    context={
+        "items": item
+    }
+    return render(request,"pages/checkout-page.html",context)
 
 
 def profile(request):
