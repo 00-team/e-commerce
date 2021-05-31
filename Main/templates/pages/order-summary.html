@@ -126,7 +126,20 @@
                     {% endif %}
                     </td>
                 </tr>
+                {{% empty %}}
+                    <tr>
+                        <td>Your Cart Is Empty</td>
+                    </tr>
                 {% endfor %}
+                {% if object.get_total %}
+                    <tr>
+                        <td colspan="4"><b>Order Total</b></td>
+                        <td>${{object.get_total}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="5"><a class="btn btn-warning float-right" href="/checkout/">Procced To Checkout</a></td>
+                    </tr>
+                {% endif %}
             </tbody>
         </table>
 
