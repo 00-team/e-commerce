@@ -148,7 +148,7 @@ def adding_single_from_cart(request,slug):
                 user=request.user,
                 ordered=False
             )[0]
-            order_item.quantity -= 1
+            order_item.quantity += 1
             order_item.save()
             messages.info(request, "This item quantity updated")
             return redirect("order-summary")
