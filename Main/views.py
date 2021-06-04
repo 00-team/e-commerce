@@ -97,7 +97,7 @@ def remove_from_cart(request,slug):
             )[0]
             order.items.remove(order_item)
             messages.info(request, "This item was removed from your cart.")
-            return redirect("product", slug=slug)
+            return redirect("order-summary")
         else:
             messages.info(request, "This item was not in your cart")
             return redirect("product", slug=slug)
