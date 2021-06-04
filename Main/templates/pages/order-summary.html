@@ -63,8 +63,9 @@
 
             <!-- Right -->
             <ul class="navbar-nav nav-flex-icons">
+                {% if request.user.is_authenticated %}
                 <li class="nav-item">
-                    <a class="nav-link waves-effect">
+                    <a class="nav-link waves-effect" href="{% url 'order-summary' %}">
                         <span class="badge red z-depth-1 mr-1"> 1 </span>
                         <i class="fas fa-shopping-cart"></i>
                         <span class="clearfix d-none d-sm-inline-block"> Cart </span>
@@ -75,6 +76,7 @@
                         <span class="clearfix d-none d-sm-inline-block"> Logout </span>
                     </a>
                 </li>
+                {% else %}
                 <li class="nav-item">
                     <a class="nav-link waves-effect" href="{% url 'account_login' %}">
                         <span class="clearfix d-none d-sm-inline-block"> Login </span>
@@ -85,6 +87,7 @@
                         <span class="clearfix d-none d-sm-inline-block"> Signup </span>
                     </a>
                 </li>
+                {% endif %}
             </ul>
 
         </div>
