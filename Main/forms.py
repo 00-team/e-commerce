@@ -6,9 +6,12 @@ PAYMENT_CHOICES = (
     ("P","PayPal")
 )
 class CheckoutForm(forms.Form):
-    street_address = forms.CharField()
-    appartment_address = forms.CharField(required=False)
-    country = CountryField(blank_label="")
+    street_address = forms.CharField(widget=forms.TextInput(attrs={
+        "placeholder":"1234 Main St"
+    }))
+    appartment_address = forms.CharField(required=False, widget=forms.TextInput(attrs={
+        "placeholder": "Apartment or Suite"}))
+    country = CountryField(blank_label="").formfield()
     zip_address = forms.CharField()
     same_billing_addres = forms.BooleanField(widget=forms.CheckboxInput())
     save_info = forms.BooleanField(widget=forms.CheckboxInput())
