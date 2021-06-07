@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.views.generic import *
 from django.utils import timezone
 from .models import *
+from .forms import CheckoutForm
 
 # Create your views here.
 
@@ -33,7 +34,24 @@ class OrderSummaryView(LoginRequiredMixin, View):
             return redirect("/")
     
 
-
+class CheckoutView(View):
+    
+    def get(self,*args, **kwargs):
+        form = CheckoutForm(self.request.POST or None)
+        context = {
+            "form": form
+        }
+        return render(self.request, "pages/checkout-page.html", context)
+        
+    def post(self,*args, **kwargs):
+        form = CheckoutForm(self.request.POST or None)
+        context = {
+            "form": form
+        }
+        if form.is_valid():
+            messages.info(self.request, "form is Valid")
+            return redirect("checkout")
+        
 
 
 @login_required
