@@ -149,7 +149,7 @@
               <div class="d-block my-3">
                 {% for v,k in form.fields.payment_option.choices %}
                   <div class="custom-control custom-radio">
-                    <input id="{{ v }}" name="PaymentMethod" type="radio" class="custom-control-input" required>
+                    <input id="{{ v }}" name="payment_option" value="{{ v }}" type="radio" class="custom-control-input" required>
                     <label class="custom-control-label" for="{{ v }}">{{ k }}</label>
                   </div>
                 {% endfor %}
