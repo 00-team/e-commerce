@@ -48,9 +48,13 @@ class CheckoutView(View):
         context = {
             "form": form
         }
+        print(self.request.POST)
         if form.is_valid():
             messages.info(self.request, "form is Valid")
+            print(form.cleaned_data)
             return redirect("checkout")
+        messages.warning(self.request,"Falied to procces form")
+        return redirect("checkout")
         
 
 
