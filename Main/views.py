@@ -48,10 +48,38 @@ class CheckoutView(View):
         context = {
             "form": form
         }
-        if form.is_valid():
-            messages.info(self.request, "form is Valid")
-            print(form.cleaned_data)
-            return redirect("checkout")
+        try:
+            order = Order.objects.get(user=self.request.user, ordered=False)
+            if form.is_valid():
+                street_address = form.cleaned_data("street_address")
+                appartment_address = form.cleaned_data("appartment_address")
+                countries = form.cleaned_data("countries")
+                zip_address = form.cleaned_data("zip_address")
+                countries = form.cleaned_data("countries")
+                zip_address = form.cleaned_data("zip_address")
+                same_billing_address = form.cleaned_data("same_billing_address")
+                save_info = form.cleaned_data("save_info")
+                payment_option = form.cleaned_data("payment_option")
+
+                billing_address = BillingAddress(
+                    user=self.request.user,
+                    appartment_address=appartment_address,
+                    street_address=street_address,
+                    countries=countries,
+                    zip_address=zip_address,
+                    same_billing_address=same_billing_address,
+                    save_info=save_info,
+                    payment_option=payment_option
+                )
+                billing_address.save()
+                order.billing_address = billing_address
+
+                messages.info(self.request, "form is Valid")
+                return redirect("checkout")
+        except ObjectDoesNotExist:
+            messages.error(self.request, "You Don't have Active Order")
+            return redirect("order-summary")
+        
         messages.warning(self.request,"Falied to procces form")
         return redirect("checkout")
         
